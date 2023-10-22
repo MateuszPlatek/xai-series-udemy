@@ -7,6 +7,10 @@ from interpret.glassbox import (LogisticRegression,
 from interpret import show
 from sklearn.metrics import f1_score, accuracy_score
 
+from interpret import set_visualize_provider
+from interpret.provider import InlineProvider
+set_visualize_provider(InlineProvider())
+
 # %% Load and preprocess data
 data_loader = DataLoader()
 data_loader.load_dataset()
@@ -32,7 +36,7 @@ print(f"Accuracy {accuracy_score(y_test, y_pred)}")
 
 # %% Explain local prediction
 lr_local = lr.explain_local(X_test[:100], y_test[:100], name='Logistic Regression')
-show(lr_local)
+show(lr_local, 0)
 
 # %% Explain global logistic regression model
 lr_global = lr.explain_global(name='Logistic Regression')
